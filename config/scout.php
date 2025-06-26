@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+
 return [
 
     /*
@@ -140,9 +142,9 @@ return [
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY'),
         'index-settings' => [
-            // 'users' => [
-            //     'filterableAttributes'=> ['id', 'name', 'email'],
-            // ],
+             'products' => [
+                 'filterableAttributes'=> ['id', 'name', 'description'],
+             ],
         ],
     ],
 
@@ -181,29 +183,23 @@ return [
         ],
         // 'max_total_results' => env('TYPESENSE_MAX_TOTAL_RESULTS', 1000),
         'model-settings' => [
-            // User::class => [
-            //     'collection-schema' => [
-            //         'fields' => [
-            //             [
-            //                 'name' => 'id',
-            //                 'type' => 'string',
-            //             ],
-            //             [
-            //                 'name' => 'name',
-            //                 'type' => 'string',
-            //             ],
-            //             [
-            //                 'name' => 'created_at',
-            //                 'type' => 'int64',
-            //             ],
-            //         ],
-            //         'default_sorting_field' => 'created_at',
-            //     ],
-            //     'search-parameters' => [
-            //         'query_by' => 'name'
-            //     ],
-            // ],
+            'model-settings' => [
+                Product::class => [
+                    'collection-schema' => [
+                        'fields' => [
+                            ['name' => 'id', 'type' => 'int32'],
+                            ['name' => 'name', 'type' => 'string'],
+                            ['name' => 'description', 'type' => 'string'],
+                            ['name' => 'price', 'type' => 'float'],
+                            ['name' => 'created_at', 'type' => 'int64'],
+                        ],
+                        'default_sorting_field' => 'created_at',
+                    ],
+                    'search-parameters' => [
+                        'query_by' => 'name,description',
+                    ],
+                ],
+            ],
         ],
     ],
-
 ];
