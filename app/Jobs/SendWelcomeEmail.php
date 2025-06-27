@@ -10,6 +10,9 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Queueable;
 
+
+
+
     /**
      * Create a new job instance.
      */
